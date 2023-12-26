@@ -51,14 +51,13 @@
 //   );
 // }
 
-
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
 
 const getTopics = async () => {
   try {
-    const res = await fetch(`${process.env.DOMAIN}/api/topics`, {
+    const res = await fetch(`${process.env.DOMAIN}api/topics`, {
       cache: "no-store",
     });
 
@@ -68,8 +67,8 @@ const getTopics = async () => {
 
     return res.json();
   } catch (error) {
-    console.log("Error loading topics: ", error);
-    // Return an empty object or handle the error in a way that suits your application
+    console.error("Error loading topics: ", error);
+    // Return an empty array or handle the error in a way that suits your application
     return { topics: [] };
   }
 };
@@ -101,11 +100,20 @@ export default function TopicsList({ topics }) {
 
 // Fetch data during server-side rendering
 export async function getServerSideProps() {
-  const { topics } = await getTopics();
+  try {
+    const { topics } = await getTopics();
 
-  return {
-    props: {
-      topics,
-    },
-  };
+    return {
+      props: {
+        topics: topics || [], // Ensure topics is always an array
+      },
+    };
+  } catch (error) {
+    console.error("Error in getServerSideProps: ", error);
+    return {
+      props: {
+        topics: [], // Return an empty array in case of an error
+      },
+    };
+  }
 }
