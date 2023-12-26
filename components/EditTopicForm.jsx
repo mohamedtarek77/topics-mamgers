@@ -14,7 +14,7 @@ export default function EditTopicForm({ id, title, description }) {
 
     try {
       // const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
-        const res = await fetch(`${process.env.DOMIAN}api/topics/${id}`, {
+        const res = await fetch(`${process.env.DOMIAN}/api/topics/${id}`, {
 
 
         method: "PUT",
