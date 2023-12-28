@@ -11,7 +11,7 @@ export default function RemoveBtn({ id }) {
     if (confirmed) {
       // const res = await fetch(`http://localhost:3000/api/topics?id=${id}`, {
 
-      const res = await fetch(`${process.env.DOMIAN}/api/topics/id=${id}`, {
+      const res = await fetch(`https://topics-mamgers.vercel.app/api/topics/id=${id}`, {
 
         method: "DELETE",
       });
